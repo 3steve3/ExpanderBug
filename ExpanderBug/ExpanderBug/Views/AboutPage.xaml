@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ExpanderBug.Views.AboutPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
+
+    <StackLayout>
+        <xct:Expander>
+            <xct:Expander.Header>
+                <Grid>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        Text="This one works" />
+                    <Image
+                        HeightRequest="25"
+                        HorizontalOptions="End"
+                        Source="DownArrow.png"
+                        VerticalOptions="Start">
+                        <Image.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}"
+                                TargetType="Image"
+                                Value="True">
+                                <Setter Property="Source" Value="UpArrow.png" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </xct:Expander.Header>
+            <Label Text="Some content" TextColor="{AppThemeBinding Light=Black, Dark=LightGray}" />
+        </xct:Expander>
+        <xct:Expander>
+            <xct:Expander.Header>
+                <Grid>
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="15"
+                        Text="This one is broken" />
+                    <Image
+                        HeightRequest="25"
+                        HorizontalOptions="End"
+                        Source="{AppThemeBinding Light=DownArrow.png,
+                                                 Dark=DownArrowDark.png}"
+                        VerticalOptions="Start">
+                        <Image.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Source={RelativeSource AncestorType={x:Type xct:Expander}}, Path=IsExpanded}"
+                                TargetType="Image"
+                                Value="True">
+                                <Setter Property="Source" Value="{AppThemeBinding Light=UpArrow.png, Dark=UpArrowDark.png}" />
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </Grid>
+            </xct:Expander.Header>
+            <Label Text="The arrow does not change to down arrow after content collapses." TextColor="{AppThemeBinding Light=Black, Dark=LightGray}" />
+        </xct:Expander>
+    </StackLayout>
+
+
+
+</ContentPage>
